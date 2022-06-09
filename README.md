@@ -7,7 +7,7 @@
 3. A script essentially reads a part of the blockchain. A transaction actually involves a payment but makes some sort of change and addition to the blockchain
 
 
-## Chapter 2 Day 2 Quests
+## Chapter 1 Day 2 Quests
 
 1. The 5 Pillars of the Cadence smart contract programming language are: safety & security, clarity, approachability, developer experience, and resource oriented programming.
 2. Essentially every pillar is in someway related to creating a safe, easy and scalable blockchain smart contract language.
