@@ -45,4 +45,9 @@ pub fun main(): String {
 }
 ```
 
+## Chapter 2, Day 2 Quests
 
+1. We would not call changeGreeting in a script because changeGreeting is a function in the execute phase of a transaction. A script only reads and returns information on the blockchain.
+2. In the prepare phase of a transaction AuthAcct gives the ability to read the data in the account; and that is taken in once the user pays for and signs/approves a transaction.
+3. The prepare phase is used to get the information and data of the user/signer's account, via AuthAcct (which can only be used in the prepare phase). Changes can also be made in the prepare phase, but that is not a good practice as can make things less clear. The execute phase of the transaction is where changes to the blockchain should be made/executed if rules of the smart contract are met. 
+4. 
