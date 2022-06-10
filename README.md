@@ -15,7 +15,8 @@
 
 ## Chapter 2 Day 1 Quests
 
-1. ![ch2d1-1](https://user-images.githubusercontent.com/106959086/172991959-ff9935fd-7c39-46ee-9826-a23eb5493448.jpg)
+1.
+![ch2d1-1](https://user-images.githubusercontent.com/106959086/172991959-ff9935fd-7c39-46ee-9826-a23eb5493448.jpg)
 
 ```cadence
 access(all) contract JacobTucker {
@@ -32,7 +33,8 @@ access(all) contract JacobTucker {
 }
 ```
 
-2. ![ch2d1-2](https://user-images.githubusercontent.com/106959086/172991977-7d20d824-83fc-437e-8307-28d222a2cd2e.jpg)
+2.
+![ch2d1-2](https://user-images.githubusercontent.com/106959086/172991977-7d20d824-83fc-437e-8307-28d222a2cd2e.jpg)
 
 ```cadence
 import JacobTucker from 0x03
