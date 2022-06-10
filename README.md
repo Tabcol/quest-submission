@@ -12,3 +12,36 @@
 1. The 5 Pillars of the Cadence smart contract programming language are: safety & security, clarity, approachability, developer experience, and resource oriented programming.
 2. Essentially every pillar is in someway related to creating a safe, easy and scalable blockchain smart contract language.
 
+
+## Chapter 2 Day 1 Quests
+
+1.
+![ch2d1-1](https://user-images.githubusercontent.com/106959086/172991959-ff9935fd-7c39-46ee-9826-a23eb5493448.jpg)
+
+```cadence
+access(all) contract JacobTucker {
+
+  // Declare a public field of type String.
+  // All fields must be initialized in the init() function.
+  access(all) let is: String
+
+  // The init() function is required if the contract contains any fields.
+  init() {
+      self.is = "the best"
+  }
+
+}
+```
+
+2.
+![ch2d1-2](https://user-images.githubusercontent.com/106959086/172991977-7d20d824-83fc-437e-8307-28d222a2cd2e.jpg)
+
+```cadence
+import JacobTucker from 0x03
+
+pub fun main(): String {
+    return JacobTucker.is
+}
+```
+
+
