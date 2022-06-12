@@ -74,3 +74,34 @@ pub contract HelloWorld {
 }
 ```
 
+wanted to do a script that passed in the int and string but know I need a different structure for that.
+
+![ch2d4-2](https://user-images.githubusercontent.com/106959086/173254856-80f6a922-54a4-4012-94ef-5dc6b4824883.jpg)
+
+```cadence
+import HelloWorld from 0x01
+
+pub fun main(): Int {
+        return HelloWorld.myNumber
+}
+```
+Executed transaction to change number (did not display anything in results in playground)
+![ch2d4-3](https://user-images.githubusercontent.com/106959086/173255144-bf506b7d-5261-4390-8725-a0b7c9fe4927.jpg)
+
+```cadence
+import HelloWorld from 0x01
+
+transaction(myNewNumber: Int) {
+
+  prepare(signer: AuthAccount) {}
+
+  execute {
+    HelloWorld.updateMyNumber(newNumber: myNewNumber)
+  }
+}
+```
+
+Ran script again to confirm successfully changed number
+![ch2d4-4](https://user-images.githubusercontent.com/106959086/173255227-e15fa432-730c-4005-9191-224ad0f11262.jpg)
+
+
