@@ -51,3 +51,26 @@ pub fun main(): String {
 2. In the prepare phase of a transaction AuthAcct gives the ability to read the data in the account; and that is taken in once the user pays for and signs/approves a transaction.
 3. The prepare phase is used to get the information and data of the user/signer's account, via AuthAcct (which can only be used in the prepare phase). Changes can also be made in the prepare phase, but that is not a good practice as can make things less clear. The execute phase of the transaction is where changes to the blockchain should be made/executed if rules of the smart contract are met. 
 4. 
+![ch2d4-1](https://user-images.githubusercontent.com/106959086/173254769-bcc16a2d-5167-46f2-91db-4e555b647d3e.jpg)
+```cadence
+pub contract HelloWorld {
+
+    pub var greeting: String
+    pub var myNumber: Int
+
+    pub fun changeGreeting(newGreeting: String) {
+        self.greeting = newGreeting
+    }
+  
+    pub fun updateMyNumber(newNumber: Int){
+        self.myNumber = newNumber
+    }
+
+    init() {
+        self.greeting = "Hello, World!"
+        self.myNumber = 0
+    }
+
+}
+```
+
