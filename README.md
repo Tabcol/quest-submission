@@ -158,4 +158,4 @@ to use the unwrap opperator I changed to this, ran script and took screen shot:)
 4. It means we messed up doing something with a dictionary most likely. The function calling the dictionary returns a optional value ```String?``` therefore doesn't match unwrappped value type stored in dictionary ```String``` so returns this mismatched type error.
    To fix we can make String optional ```pub fun main (): String? {```
    Or leave ```String``` in that first line and add unwrap opperation to end of line 3: ```return thing[0x03]!```
-   A 3rd option is to add panic option to that line: ```return thing[0x03]?? panic("Error Returning thing value")
+   A 3rd option is to add panic option to that line: ```return thing[0x03]?? panic("Error Returning thing value")```
