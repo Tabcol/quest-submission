@@ -105,3 +105,17 @@ Ran script again to confirm successfully changed number
 ![ch2d4-4](https://user-images.githubusercontent.com/106959086/173255227-e15fa432-730c-4005-9191-224ad0f11262.jpg)
 
 
+##Chapter 2, Day 3 Quest
+ 1.
+ ![ch2d3-1](https://user-images.githubusercontent.com/106959086/173716273-a88f0a5d-5862-4fbc-b80e-5401a1f1b7e1.jpg)
+ 
+ ```cadence
+pub fun main() 
+{
+    var s: [String] = ["T-Bone", "Coco Rico", "A Dawgs"]
+    log(s)
+}
+
+2.
+ ```
+
