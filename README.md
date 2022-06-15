@@ -115,7 +115,23 @@ pub fun main()
     var s: [String] = ["T-Bone", "Coco Rico", "A Dawgs"]
     log(s)
 }
-
-2.
  ```
+ 
+ 2.
+ ![ch2d3-2](https://user-images.githubusercontent.com/106959086/173738308-4983b917-16a6-4e08-b0e8-29e12028d492.jpg)
+
+```cadence
+pub fun main() 
+{
+    // 1. with variable changed to "S"
+    var S: [String] = ["T-Bone", "Coco Rico", "A Dawgs"]
+    log(S)
+
+    // 2.
+    var s: {String: Int} = {"Facebook": 3, "Instagram": 1, "Twitter": 4, "YouTube": 5, "Reddit": 2, "LinkedIn": 0}
+    log(s)
+}
+```
+
+3.
 
