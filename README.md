@@ -133,5 +133,26 @@ pub fun main()
 }
 ```
 
-3. Dictionaries when accessed by a function return an optional value ```cadence ? ``` as either the return type (String, Int, or Address) or returns null/nil if there is no key, value or index or unexpected variable. We can use the force unwrap opperator ```!``` to remove/force unwrap the optional. The Pacic opperator can also by used as an alternative to more specifically locate where an error occured. 
+3. Dictionaries when accessed by a function return an optional value ```? ``` as either the return type (String, Int, or Address) or returns null/nil/void if there is no key, value or index or unexpected variable. We can use the force unwrap opperator ```!``` to remove/force unwrap the optional. The panic feature ```?? panic("Not today boo")``` can also by used as an alternative to more specifically locate where an error occured. Anothere option is to make the return type of the function optional
 
+I added this code to the script and ran - retured void...
+```cadence
+  //3. 
+    pub fun main2(): Address?
+{ 
+    let peeps: {Int: Address} = {1: 0x01, 2: 0x02, 3: 0x03}
+    return peeps [1]
+}
+```
+to use the unwrap opperator I changed to this, ran script and took screen shot:)
+```cadence
+  //3. 
+    pub fun main2(): Address 
+{ 
+    let peeps: {Int: Address} = {1: 0x01, 2: 0x02, 3: 0x03}
+    return peeps [1]! 
+}
+```
+![ch2d3-3](https://user-images.githubusercontent.com/106959086/173785677-2495c5c1-b5b5-4d37-8b7c-c1272de75c06.jpg)
+
+4.
