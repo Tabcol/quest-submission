@@ -133,5 +133,5 @@ pub fun main()
 }
 ```
 
-3.
+3. Dictionaries when accessed by a function return an optional value ```cadence ? ``` as either the return type (String, Int, or Address) or returns null/nil if there is no key, value or index or unexpected variable. We can use the force unwrap opperator ```!``` to remove/force unwrap the optional. The Pacic opperator can also by used as an alternative to more specifically locate where an error occured. 
 
