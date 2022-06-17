@@ -159,3 +159,57 @@ to use the unwrap opperator I changed to this, ran script and took screen shot:)
    To fix we can make String optional ```pub fun main (): String? {```
    Or leave ```String``` in that first line and add unwrap opperation to end of line 3: ```return thing[0x03]!```
    A 3rd option is to add panic option to that line: ```return thing[0x03]?? panic("Error Returning thing value")```
+
+
+## Chapter 2, Day 4
+
+Contract: 
+```cadence
+pub contract GoldenIdolsQuest {
+
+    pub var teams: {Int: Teams}
+    
+    pub struct Teams {
+        pub let flovs: String
+        pub let points: Int
+        pub let place: Int
+
+        init(_flovs: String, _points: Int, _place: Int) {
+            self.flovs = _flovs
+            self.points = _points
+            self.place = _place
+           
+        }
+    }
+
+    pub fun addTeam(flovs: String, points: Int, place: Int) {
+        let newTeam = Teams(_flovs: flovs, _points: points, _place: place)
+        self.teams[place] = newTeam
+    }
+
+    init() {
+        self.teams = {}
+    }
+
+}
+```
+
+Transaction: 
+```cadence
+import GoldenIdolsQuest from 0x01
+
+transaction(flovs: String, points: Int, place: Int) {
+
+    prepare(signer: AuthAccount) {}
+
+    execute {
+        GoldenIdolsQuest.addTeam(flovs: flovs, points: points, place: place)
+        log("Droids Rule Flovatar;)")
+    }
+}
+```
+
+Script:
+```cadence
+
+```
