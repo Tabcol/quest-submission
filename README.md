@@ -193,8 +193,9 @@ pub contract GoldenIdolsQuest {
 
 }
 ```
+Transaction:
+![ch2d4-a](https://user-images.githubusercontent.com/106959086/174385778-b6d6a502-791d-4ac3-8451-d71fe62ac994.jpg)
 
-Transaction: 
 ```cadence
 import GoldenIdolsQuest from 0x01
 
