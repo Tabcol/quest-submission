@@ -211,5 +211,9 @@ transaction(flovs: String, points: Int, place: Int) {
 
 Script:
 ```cadence
+import GoldenIdolsQuest from 0x01
 
+pub fun main(place: Int): GoldenIdolsQuest.Team {
+    return GoldenIdolsQuest.team[place]!
+}
 ```
