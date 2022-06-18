@@ -209,12 +209,15 @@ transaction(flovs: String, points: Int, place: Int) {
     }
 }
 ```
+![ch2d4-b](https://user-images.githubusercontent.com/106959086/174458548-2beb14b2-bacd-40c2-97f6-9e11d6ab3e24.jpg)
 
 Script:
 ```cadence
 import GoldenIdolsQuest from 0x01
 
-pub fun main(place: Int): GoldenIdolsQuest.Team {
-    return GoldenIdolsQuest.team[place]!
+pub fun main(place: Int): GoldenIdolsQuest.Teams {
+    return GoldenIdolsQuest.teams[place]!
 }
 ```
+
+## Chapter 3, Day 1
