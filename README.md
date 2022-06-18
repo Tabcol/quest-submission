@@ -221,3 +221,33 @@ pub fun main(place: Int): GoldenIdolsQuest.Teams {
 ```
 
 ## Chapter 3, Day 1
+
+1. Structs look similar but are very different from resources. Structs can be created from outside of a contract, resources can not. Structs can be copied, resources can only be ```<-``` moved. Structs are less complicated than resources because the rules for handling and interacting with the later. Resources can be burned but they can't be lost or comprimised by overwrite.
+2. A resource would be needed over a struct whenever storing something of value such as an NFT or token.
+3. ```create``` is they keyword required, in the contract, that is used to make a resource.
+4. A resource can only be created within a contract, not a transaction or script.
+5. Jacob is a public type resouce here:
+```cadence
+ pub resource Jacob{
+ 
+ }
+ ```
+6. Made changes to code, but was still getting mismatched type error code in playground on last line of code.
+```cadence
+pub contract Test {
+
+    // Hint: There's nothing wrong here ;)
+    pub resource Jacob {
+        pub let rocks: Bool
+        init() {
+            self.rocks = true
+        }
+    }
+
+    pub fun createJacob(): &Jacob {  // added & to resource
+        let myJacob <- create Jacob() // changed to <- and added create
+        return <- myJacob // again changed = to <-
+    }
+ }
+ ```
+
