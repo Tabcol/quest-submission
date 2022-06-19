@@ -232,7 +232,10 @@ pub fun main(place: Int): GoldenIdolsQuest.Teams {
  
  }
  ```
-6. Made changes to code, but was still getting mismatched type error code in playground on last line of code.
+
+6.
+![ch2d4-c](https://user-images.githubusercontent.com/106959086/174504763-76bfccb9-86c3-4325-979a-3f10a8e026c9.jpg)
+
 ```cadence
 pub contract Test {
 
@@ -244,7 +247,7 @@ pub contract Test {
         }
     }
 
-    pub fun createJacob(): &Jacob {  // added & to resource
+    pub fun createJacob(): @Jacob {  // added @ to resource
         let myJacob <- create Jacob() // changed to <- and added create
         return <- myJacob // again changed = to <-
     }
