@@ -313,7 +313,7 @@ pub contract LearningResourcesReferences {
     }
 
     pub fun getReference(key: String): &Me? {
-      return &self.dictionaryOfMe[key] as &Me?
+      return (&self.dictionaryOfMe[key] as &Me?)!
     }
 
        init() {
@@ -327,4 +327,17 @@ pub contract LearningResourcesReferences {
 ```
 
 2.
+```cadence
+import LearningResourcesReferences from 0x04
 
+pub fun main(): String {
+  let ref = Me.getReference(key: "Confused")
+  return ref.state // returns "Mostly" 
+}
+```
+
+2.
+uh oh not sure why not recognizing resource, I tried with contract code function returning both wrapped and unwrapped
+![ch3d2-2](https://user-images.githubusercontent.com/106959086/174676669-d417d7d2-5163-4937-aa60-ba9c9e3de95b.jpg)
+
+3. References are very useful in Cadence because they help us read resources in dictionaries. Without the use of references we would have to move resources many times to read and interact with. 
