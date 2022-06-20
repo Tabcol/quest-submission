@@ -296,3 +296,35 @@ pub contract LearningResources {
 }
 ```
 ![ch3d2-1](https://user-images.githubusercontent.com/106959086/174668974-94ba2913-3588-4a1d-9178-faea68c88301.jpg)
+
+## Chapter 3, Day 3
+
+1.
+```cadence
+pub contract LearningResourcesReferences {
+
+        pub var dictionaryOfMe: @{String: Me}
+
+    pub resource Me {
+        pub let state: String
+        init(_state: String) {
+            self.state = _state
+        }
+    }
+
+    pub fun getReference(key: String): &Me? {
+      return &self.dictionaryOfMe[key] as &Me?
+    }
+
+       init() {
+         self.dictionaryOfMe <- {
+         "Confused": <- create Me(_state: "Mostly"),
+         "Less Confused": <- create Me(_state: "Sometimes") 
+        }
+    }
+
+}
+```
+
+2.
+
