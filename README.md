@@ -254,3 +254,45 @@ pub contract Test {
  }
  ```
 
+## Chapter 3, Day 2
+```cadence
+pub contract LearningResources {
+
+    pub var arrayOfMe: @[Me]
+    pub var dictionaryOfMe: @{String: Me}
+
+    pub resource Me {
+        pub let state: String
+        init() {
+            self.state = "Confused"
+        }
+    }
+
+    pub fun addMe(me: @Me) {
+        self.arrayOfMe.append(<- me)
+    }
+
+    pub fun removeGreeting(index: Int): @Me {
+        return <- self.arrayOfMe.remove(at: index)
+    }
+
+    init() {
+        self.arrayOfMe <- []
+        self.dictionaryOfMe <- {}
+    }
+
+     pub fun addMedict(me: @Me) {
+        let key = me.state
+        
+        let oldMe <- self.dictionaryOfMe[key] <- me
+        destroy oldMe
+    }
+
+    pub fun removeGreetingdict(key: String): @Me {
+        let me <- self.dictionaryOfMe.remove(key: key) ?? panic("Is you dumb!?")
+        return <- me
+    }
+
+}
+```
+![ch3d2-1](https://user-images.githubusercontent.com/106959086/174668974-94ba2913-3588-4a1d-9178-faea68c88301.jpg)
