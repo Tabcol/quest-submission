@@ -312,7 +312,7 @@ pub contract LearningResourcesReferences {
         }
     }
 
-    pub fun getReference(key: String): &Me? {
+    pub fun getReference(key: String): &Me {
       return (&self.dictionaryOfMe[key] as &Me?)!
     }
 
@@ -335,7 +335,7 @@ pub fun main(): String {
   return ref.state // returns "Mostly"  
 }
 ```
-Not sure where messing up in the script. I tried both wrapped and unwrapped in contract...
-![ch3d2-3](https://user-images.githubusercontent.com/106959086/174904639-63756fcc-d7e6-45e0-b7f9-0e50b8161f03.jpg)
+![ch3d3-1](https://user-images.githubusercontent.com/106959086/175430676-a98dcc12-2567-4353-b1f2-680a23652f2c.jpg)
+
 
 3. References are very useful in Cadence because they help us read resources in dictionaries. Without the use of references we would have to move resources many times to read and interact with. 
