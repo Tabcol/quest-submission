@@ -339,3 +339,9 @@ pub fun main(): String {
 
 
 3. References are very useful in Cadence because they help us read resources in dictionaries. Without the use of references we would have to move resources many times to read and interact with. 
+
+
+## Chapter 3, Day 4
+
+1. Resource Interfaces are used to get resources to implement putting certain steps into action. We can also use interfaces to make sure only the information within resources we want to share or allow access to can be exposed. 
+2. 
