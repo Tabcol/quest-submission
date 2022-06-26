@@ -344,4 +344,90 @@ pub fun main(): String {
 ## Chapter 3, Day 4
 
 1. Resource Interfaces are used to get resources to implement putting certain steps into action. We can also use interfaces to make sure only the information within resources we want to share or allow access to can be exposed. 
-2. 
+2. In this example all the variable and a function are passed through the interface giving full control to change the price of a card
+```cadence
+pub contract SportsCards {
+
+    pub resource interface ICard {
+      pub var name: String
+      pub var price: Int
+      pub fun updatePrice(newPrice: Int): Int
+    }
+
+    pub resource Card: ICard {
+      pub var name: String
+      pub var price: Int
+
+      pub fun updatePrice(newPrice: Int): Int {
+        self.price = newPrice
+        return self.price
+      }
+
+      init() {
+        self.name = "1986 Fleer Michael Jordan"
+        self.price = 2000
+      }
+    }
+
+    pub fun noInterface() {
+      let card: @Card <- create Card()
+      card.updatePrice(newPrice: 2500)
+      log(card.price) // 2500
+
+      destroy card
+    }
+
+      pub fun yesInterface() {
+      let card: @Card{ICard} <- create Card()
+      let newPrice = card.updatePrice(newPrice: 2500)
+      log(newPrice) 
+
+      destroy card
+    }
+}
+```
+
+Here we do not pass price and updatePrice through the Interface, so get a member of restricted type error:
+```cadence
+pub contract SportsCards {
+
+    pub resource interface ICard {
+      pub var name: String
+      
+    }
+
+    pub resource Card: ICard {
+      pub var name: String
+      pub var price: Int
+
+      pub fun updatePrice(newPrice: Int): Int {
+        self.price = newPrice
+        return self.price
+      }
+
+      init() {
+        self.name = "1986 Fleer Michael Jordan"
+        self.price = 2000
+      }
+    }
+
+    pub fun noInterface() {
+      let card: @Card <- create Card()
+      card.updatePrice(newPrice: 2500)
+      log(card.price) // 2500
+
+      destroy card
+    }
+
+      pub fun yesInterface() {
+      let card: @Card{ICard} <- create Card()
+      let newPrice = card.updatePrice(newPrice: 2500)
+      log(newPrice) 
+
+      destroy card
+    }
+}
+```
+
+3. To fix declare other variable and function in Interface, add variable to ```init()```
+![ch3d4-1](https://user-images.githubusercontent.com/106959086/175835479-83cd24c2-4eb9-436a-96b6-f28f5f5b69d3.jpg)
