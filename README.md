@@ -596,12 +596,15 @@ transaction() {
     log(cardResource.price)
     signer.save(<- cardResource, to: /storage/MyCardResource) 
     log("Card Resource has been saved")
-    
+
+    signer.load <- <@SportsCards2.Card> (from: /storage/MyCardResource)
+        ?? panic("The resource does not live here")
   }
 
   execute {
   }
 }
+
 ```
 
 
