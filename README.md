@@ -541,7 +541,7 @@ pub fun main() {
   /**************/
   /*** AREA 4 ***/
   /**************/
-   //       // a: read, write
+   //       // a: read
             // b: read
             // c: 
             // d:
