@@ -563,4 +563,5 @@ pub fun main() {
 ```.borrow()``` is used to just look at something in an account and returns a reference instead of the actual data/resouce. 
 ```.load()``` is used to take data out of an account, it just takes in 1 path - where the info/resource exists in storage. This is returned as an optional because the program doesn't know if something exists at that location. 
 4. Regardless of access control or storage types, scripts cannot write/save to the blockchain. A transaction must be used. 
-5. 
+5. You cannot save anything to my account because you do not have my ```AuthAccount```
+6. 
