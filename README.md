@@ -551,3 +551,11 @@ pub fun main() {
             // privateFunc(): 
 }
 ```
+
+## Chapter 4, Day 1
+
+1. In cadence accounts hold contracts, and they also have storage. The 3 different " storage containters" if you will are ```/storage/``` ```/public/``` and ```/private/'''. Public and Private are essentially pathways with different capabilities where the account owner can store what they want to make available respectivly.
+2. ```/storage/``` this is where all of the account data and resources live. Any info on the blockchain can still be viewed regardless of coding.
+   ```/public/```  is what is available to everybody to read and interact with your storage.
+   ```/private/``` is private (cannot be called by unapproved outside scripts or transactions), only by  the account owner and who they give acccess to. 
+3. 
