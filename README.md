@@ -558,4 +558,7 @@ pub fun main() {
 2. ```/storage/``` this is where all of the account data and resources live. Any info on the blockchain can still be viewed regardless of coding.
    ```/public/```  is what is available to everybody to read and interact with your storage.
    ```/private/``` is private (cannot be called by unapproved outside scripts or transactions), only by  the account owner and who they give acccess to. 
-3. 
+3. ```.save()``` ```.borrow()``` and ```.load()``` are all used to interact with storage, they can only be used if have the ```AuthAccount``` and must be in prepare phase of a transaction. 
+```.save()``` takes in data/a resource and moves it to the storage path passed in.
+```.borrow()``` is used to just look at something in an account and returns a reference instead of the actual data/resouce. 
+```.load()``` is used to take data out of an account, it just takes in 1 path - where the info/resource exists in storage. This is returned as an optional because the program doesn't know if something exists at that location. 
