@@ -565,3 +565,23 @@ pub fun main() {
 4. Regardless of access control or storage types, scripts cannot write/save to the blockchain. A transaction must be used. 
 5. You cannot save anything to my account because you do not have my ```AuthAccount```
 6. 
+```cadence
+pub contract SportsCards2 {
+
+  pub resource Card  {
+     pub var name: String
+     pub var price: Int
+
+      init() {
+        self.name = "1986 Fleer Michael Jordan"
+        self.price = 2000
+      }
+  }
+
+  pub fun updateCard(): @Card {
+      return <- create Card()
+  }
+}
+```
+![ch4d1-1](https://user-images.githubusercontent.com/106959086/176039985-b2184449-27b5-4e3d-b386-0db6530dde19.jpg)
+
