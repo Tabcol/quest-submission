@@ -585,3 +585,30 @@ pub contract SportsCards2 {
 ```
 ![ch4d1-1](https://user-images.githubusercontent.com/106959086/176039985-b2184449-27b5-4e3d-b386-0db6530dde19.jpg)
 
+Transaction 1:
+```cadence
+import SportsCards2 from 0x02
+
+transaction() {
+  prepare(signer: AuthAccount) {
+    let cardResource <- SportsCards2.updateCard()
+    log(cardResource.name)
+    log(cardResource.price)
+    signer.save(<- cardResource, to: /storage/MyCardResource) 
+    log("Card Resource has been saved")
+    
+  }
+
+  execute {
+  }
+}
+```
+
+
+Transaction 2: 
+```cadence
+
+```
+
+
+
