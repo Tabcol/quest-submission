@@ -629,3 +629,9 @@ transaction() {
 ![image](https://user-images.githubusercontent.com/106959086/176329406-aa798d7b-a215-4e09-803a-2738f9e516c5.png)
 
 
+## Chapter 4, Day 2
+
+1. ```link()``` is a function we use to map an NFT to a path in storage, it uses a public or private path, along with the location of the data/resource in account storage.
+2. We can use a resource interface (that only passes in certain data), and can be used to limit access to a resource so stated things can be viewed, but not changed.
+3. 
+ 
