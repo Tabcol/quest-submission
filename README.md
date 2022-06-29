@@ -634,4 +634,33 @@ transaction() {
 1. ```link()``` is a function we use to map an NFT to a path in storage, it uses a public or private path, along with the location of the data/resource in account storage.
 2. We can use a resource interface (that only passes in certain data), and can be used to limit access to a resource so stated things can be viewed, but not changed.
 3. 
- 
+```cadence
+pub contract SportsCards3 {
+
+  pub resource interface ICard {
+     pub var name: String
+     pub var price: Int
+  }
+
+  pub resource Card: ICard  {
+     pub var name: String
+     pub var price: Int
+
+    pub fun updatePrice(newPrice: Int): Int {
+      self.price = newPrice
+      return self.price
+      }
+
+      init() {
+        self.name = "1986 Fleer Michael Jordan"
+        self.price = 2000
+      }
+  }
+
+  pub fun updateCard(): @Card {
+      return <- create Card()
+  }
+}
+```
+
+
