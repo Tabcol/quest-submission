@@ -609,8 +609,23 @@ transaction() {
 
 Transaction 2: 
 ```cadence
+import SportsCards2 from 0x02
 
+transaction() {
+  prepare(signer: AuthAccount) {
+    let cardResource <- SportsCards2.updateCard()    
+    signer.save(<- cardResource, to: /storage/MyCardResource) 
+      log("Card Resource has been saved")
+   
+    let card = signer.borrow<&SportsCards2.Card>(from: /storage/MyCardResource)
+                       ?? panic("The resource does not live here")
+      log(card.name)
+      log(card.price)
+   }  
+  execute {
+  }
+}
 ```
-
+![image](https://user-images.githubusercontent.com/106959086/176329406-aa798d7b-a215-4e09-803a-2738f9e516c5.png)
 
 
