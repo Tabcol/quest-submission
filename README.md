@@ -590,22 +590,21 @@ Transaction 1:
 import SportsCards2 from 0x02
 
 transaction() {
-  prepare(signer: AuthAccount) {
-    let cardResource <- SportsCards2.updateCard()
-    log(cardResource.name)
-    log(cardResource.price)
+    prepare(signer: AuthAccount) {
+    let cardResource <- SportsCards2.updateCard()    
     signer.save(<- cardResource, to: /storage/MyCardResource) 
-    log("Card Resource has been saved")
-
-    signer.load <- <@SportsCards2.Card> (from: /storage/MyCardResource)
-        ?? panic("The resource does not live here")
-  }
-
+      log("Card Resource has been saved")
+    let card <- signer.load <@SportsCards2.Card> (from: /storage/MyCardResource)
+                ?? panic("The resource does not live here")
+      log(card.name)
+      log(card.price)
+    destroy card
+  }  
   execute {
   }
 }
-
 ```
+![ch4d1-2](https://user-images.githubusercontent.com/106959086/176325149-fd5700fa-7c10-4189-b611-5f6bf61e99bf.jpg)
 
 
 Transaction 2: 
