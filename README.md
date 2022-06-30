@@ -645,6 +645,7 @@ pub contract SportsCards3 {
   pub resource Card: ICard  {
      pub var name: String
      pub var price: Int
+     pub let cost: Int
 
     pub fun updatePrice(newPrice: Int): Int {
       self.price = newPrice
@@ -654,6 +655,7 @@ pub contract SportsCards3 {
       init() {
         self.name = "1986 Fleer Michael Jordan"
         self.price = 2000
+        self.cost = 1200
       }
   }
 
