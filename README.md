@@ -663,4 +663,24 @@ pub contract SportsCards3 {
 }
 ```
 
+Transaction to save and creat public storage interface
+```cadence
+import SportsCards3 from 0x02
+
+transaction() {
+  prepare(signer: AuthAccount) {
+    signer.save(<- SportsCards3.updateCard(), to: /storage/MyCardResource)   
+    
+      log("Card Resource has been saved")
+   
+    signer.link<&SportsCards3.Card{SportsCards3.ICard}>(/public/MyCardResource, target: /storage/MyCardResource)
+      log("Public path to card resource has been set")
+    }
+  execute {
+  }
+}
+```
+![ch4d2-1](https://user-images.githubusercontent.com/106959086/176566390-a4b92247-eff8-4e51-8fdb-2272ec02ca30.jpg)
+
+
 
