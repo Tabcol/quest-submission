@@ -675,14 +675,43 @@ transaction() {
     
       log("Card Resource has been saved")
    
-    signer.link<&SportsCards3.Card{SportsCards3.ICard}>(/public/MyCardResource, target: /storage/MyCardResource)
+    signer.link<&SportsCards3.Card{SportsCards3.ICard}>(/public/MyCardResourcePublic, target: /storage/MyCardResource)
       log("Public path to card resource has been set")
     }
   execute {
   }
 }
 ```
-![ch4d2-1](https://user-images.githubusercontent.com/106959086/176566390-a4b92247-eff8-4e51-8fdb-2272ec02ca30.jpg)
+![ch4d2-1](https://user-images.githubusercontent.com/106959086/176775616-808ec330-9efa-48cd-b20d-20926e51a3c5.jpg)
+
+Script trying to access data that is not exposed in the resource interface:
+```cadence
+import SportsCards3 from 0x02
+
+pub fun main(account: Address){
+
+    let publicMyCard = getAccount(account).getCapability(/public/MyCardResourcePublic)
+                            .borrow<&SportsCards3.Card{SportsCards3.ICard}>()
+                                ?? panic("Could not get public link.")
+    log(publicMyCard.cost)
+}
+```
+![ch4d2-2](https://user-images.githubusercontent.com/106959086/176777461-c772a286-a427-4b2b-b849-06d37703bfbd.jpg)
+
+Running script that can access info through interface in public path:
+```cadence
+import SportsCards3 from 0x02
+
+pub fun main(account: Address){
+
+    let publicMyCard = getAccount(account).getCapability(/public/MyCardResourcePublic)
+                            .borrow<&SportsCards3.Card{SportsCards3.ICard}>()
+                                ?? panic("Could not get public link.")
+    log(publicMyCard.name)
+    log(publicMyCard.price)
+}
+```
+![ch4d2-3](https://user-images.githubusercontent.com/106959086/176778299-914dc699-4807-4b4d-b88a-73ad18816a7a.jpg)
 
 
 
