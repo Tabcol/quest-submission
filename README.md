@@ -714,4 +714,94 @@ pub fun main(account: Address){
 ![ch4d2-3](https://user-images.githubusercontent.com/106959086/176778299-914dc699-4807-4b4d-b88a-73ad18816a7a.jpg)
 
 
+## Chapter 4, Day 3
+
+1. We add a collection to this contract, so that we can save muliple NFT resources to one location, path. This also allows others to read the NFTs in our collection. 
+2. With composable NFTs in cadence, if you have one resource nested inside of another you must create a destroy function for the nested resource to manually be destroyed. 
+3. We will need to control who can mint the contract, being behind on the quests a little I've seen enough to know we will be able to have a minter function in the collection and save it in a way that the person with capability to mint will have a reference to that contract function stored in their account storage. I'd guess interfaces and capabilities can help us further customize this as well. This should also help us not have to remove an NFT from collection or storage if we want to just read it. 
+
+
+## Chapter 4, Day 4
+
+```candence
+pub contract CryptoPoops {
+  pub var totalSupply: UInt64
+
+  // This is an NFT resource that contains a name,
+  // favouriteFood, and luckyNumber
+  pub resource NFT {
+    pub let id: UInt64
+
+    pub let name: String
+    pub let favouriteFood: String
+    pub let luckyNumber: Int
+
+    init(_name: String, _favouriteFood: String, _luckyNumber: Int) {
+      self.id = self.uuid
+
+      self.name = _name
+      self.favouriteFood = _favouriteFood
+      self.luckyNumber = _luckyNumber
+    }
+  }
+
+  // This is a resource interface that allows us to... you get the point.
+  pub resource interface CollectionPublic {
+    pub fun deposit(token: @NFT)
+    pub fun getIDs(): [UInt64]
+    pub fun borrowNFT(id: UInt64): &NFT
+  }
+
+  pub resource Collection: CollectionPublic {
+    pub var ownedNFTs: @{UInt64: NFT}
+
+    pub fun deposit(token: @NFT) {
+      self.ownedNFTs[token.id] <-! token
+    }
+
+    pub fun withdraw(withdrawID: UInt64): @NFT {
+      let nft <- self.ownedNFTs.remove(key: withdrawID) 
+              ?? panic("This NFT does not exist in this Collection.")
+      return <- nft
+    }
+
+    pub fun getIDs(): [UInt64] {
+      return self.ownedNFTs.keys
+    }
+
+    pub fun borrowNFT(id: UInt64): &NFT {
+      return (&self.ownedNFTs[id] as &NFT?)!
+    }
+
+    init() {
+      self.ownedNFTs <- {}
+    }
+
+    destroy() {
+      destroy self.ownedNFTs
+    }
+  }
+
+  pub fun createEmptyCollection(): @Collection {
+    return <- create Collection()
+  }
+
+  pub resource Minter {
+
+    pub fun createNFT(name: String, favouriteFood: String, luckyNumber: Int): @NFT {
+      return <- create NFT(_name: name, _favouriteFood: favouriteFood, _luckyNumber: luckyNumber)
+    }
+
+    pub fun createMinter(): @Minter {
+      return <- create Minter()
+    }
+
+  }
+
+  init() {
+    self.totalSupply = 0
+    self.account.save(<- create Minter(), to: /storage/Minter)
+  }
+}
+```
 
