@@ -965,7 +965,51 @@ pub contract Test {
 
 1. Standards are imperative, we use them on the flow blockchain to not only make things more readable for developers but more importantly give all NFT contracts and universal set of variables, functions, and interfaces so that people, dapps, marketplaces, etc can all access the contract info (without having to do so for each one in a customized inefficient way.
 2. Picking favs is the hardest for me:) Tacos!
-3. 
+3. Needed to import interface into contract, remove resource interface from contract, then pass through correct interface:
 
+```cadence
+import ITest from 0x04
+pub contract Test: ITest {
+  pub var number: Int
+  
+  pub fun updateNumber(newNumber: Int) {
+    self.number = 5
+  }
 
+  pub resource Stuff: ITest.IStuff {
+    pub var favouriteActivity: String
+
+    init() {
+      self.favouriteActivity = "Playing League of Legends."
+    }
+  }
+
+  init() {
+    self.number = 0
+  }
+}
+```
+
+```cadence
+pub contract interface ITest {
+  pub var number: Int
+  
+  pub fun updateNumber(newNumber: Int) {
+    pre {
+      newNumber >= 0: "We don't like negative numbers for some reason. We're mean."
+    }
+    post {
+      self.number == newNumber: "Didn't update the number to be the new number."
+    }
+  }
+
+  pub resource interface IStuff {
+    pub var favouriteActivity: String
+  }
+
+  pub resource Stuff {
+    pub var favouriteActivity: String
+  }
+}
+```
 
