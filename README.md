@@ -961,3 +961,11 @@ pub contract Test {
   }
 ```
 
+## Chapter 5, Day 2
+
+1. Standards are imperative, we use them on the flow blockchain to not only make things more readable for developers but more importantly give all NFT contracts and universal set of variables, functions, and interfaces so that people, dapps, marketplaces, etc can all access the contract info (without having to do so for each one in a customized inefficient way.
+2. Picking favs is the hardest for me:) Tacos!
+3. 
+
+
+
