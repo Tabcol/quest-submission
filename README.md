@@ -1013,3 +1013,9 @@ pub contract interface ITest {
 }
 ```
 
+## Chapter 5, Day 3
+
+1. Force casting with ```as!``` downcasts from a generic resource 'type" to a more specific and defined resource type. This is useful because in cadence the non fungible token contract interface standards which make things easier to read and interact with can also make all project NFTs look identical. This could enable others to deposit NFTs from a different collection into our collection. Force casting makes sure it is actually the correct NFT type when borrowing, before depositing it into a collection. If the type doesn't match the program will panic and abort.
+2. When trying to borrow resource in order to force cast and read resource reference, you are required to use the ```auth``` authorized reference to do so. This can be added into the borrow function, and those updates will need to be reflected in the interface. 
+3. 
+ 
