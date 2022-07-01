@@ -727,7 +727,7 @@ pub fun main(account: Address){
 pub contract CryptoPoops {
   pub var totalSupply: UInt64
 
-  // This is an NFT resource that contains a name,
+  // This is an NFT resource that contains a id, name,
   // favouriteFood, and luckyNumber
   pub resource NFT {
     pub let id: UInt64
@@ -736,6 +736,7 @@ pub contract CryptoPoops {
     pub let favouriteFood: String
     pub let luckyNumber: Int
 
+  // initializes the stated variables
     init(_name: String, _favouriteFood: String, _luckyNumber: Int) {
       self.id = self.uuid
 
@@ -745,59 +746,73 @@ pub contract CryptoPoops {
     }
   }
 
-  // This is a resource interface that allows us to... you get the point.
+  // This is a resource interface that allows us to only give access to data and functions
+  // we choose: deposit, getIDs and borrowNFT (the reference to read, not the resource)
   pub resource interface CollectionPublic {
     pub fun deposit(token: @NFT)
     pub fun getIDs(): [UInt64]
     pub fun borrowNFT(id: UInt64): &NFT
   }
-
+  
+  // This resource is our collection which stores each NFT in a dictionary mapping 
+  // each to its unique id
   pub resource Collection: CollectionPublic {
     pub var ownedNFTs: @{UInt64: NFT}
-
+    
+    // function to deposit an NFT into the collection
     pub fun deposit(token: @NFT) {
       self.ownedNFTs[token.id] <-! token
     }
 
+    // function to withdrawal resource from collection
     pub fun withdraw(withdrawID: UInt64): @NFT {
       let nft <- self.ownedNFTs.remove(key: withdrawID) 
               ?? panic("This NFT does not exist in this Collection.")
       return <- nft
     }
 
+    // function to get id numbers for NFTs in the collection
     pub fun getIDs(): [UInt64] {
       return self.ownedNFTs.keys
     }
 
+    // function to enable others borrow/read a reference to NFT/id 
     pub fun borrowNFT(id: UInt64): &NFT {
       return (&self.ownedNFTs[id] as &NFT?)!
     }
 
+    // initializes dictionary
     init() {
       self.ownedNFTs <- {}
     }
-
+    
+    // requred destroy function of nested NFT
     destroy() {
       destroy self.ownedNFTs
     }
   }
 
+  // function to create a new Collection
   pub fun createEmptyCollection(): @Collection {
     return <- create Collection()
   }
 
+  // resource that is used for minting a new NFT 
   pub resource Minter {
 
+    // function to create a new NFT
     pub fun createNFT(name: String, favouriteFood: String, luckyNumber: Int): @NFT {
       return <- create NFT(_name: name, _favouriteFood: favouriteFood, _luckyNumber: luckyNumber)
     }
 
+    // function used to creat new minter
     pub fun createMinter(): @Minter {
       return <- create Minter()
     }
 
   }
 
+  // initialize requred variable totalSupply and save minter to users account storage
   init() {
     self.totalSupply = 0
     self.account.save(<- create Minter(), to: /storage/Minter)
