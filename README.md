@@ -820,3 +820,144 @@ pub contract CryptoPoops {
 }
 ```
 
+
+// in progress
+## Chapter 5, Day 1
+
+1. An event is something we create in cadence and give a unique ID number tied to the data you want to share in the resource/NFT; and then send/emit it to the blockchain. This is of course something that is typically tied to a internal change of data, or transaction thus there is an update of info and we let that be known. 
+2.
+```cadence
+pub contract SportsCards4 {
+
+  pub event NFTMinted(id: UInt64)
+
+  pub resource interface ICard {
+     pub var name: String
+     pub var price: Int
+  }
+
+  pub resource Card: ICard  {
+     pub let id: UInt64
+     pub var name: String
+     pub var price: Int
+     pub let cost: Int
+
+    pub fun updatePrice(newPrice: Int): Int {
+      self.price = newPrice
+      return self.price
+      }
+
+      init() {
+        self.id = self.uuid
+        self.name = "1986 Fleer Michael Jordan"
+        self.price = 2000
+        self.cost = 1200
+        emit NFTMinted(id: self.id)
+      }
+  }
+
+  pub fun updateCard(): @Card {
+      return <- create Card()
+  }
+}
+```
+
+3.
+```cadence
+pub contract SportsCards4 {
+
+  pub event NFTMinted(id: UInt64)
+
+  pub resource interface ICard {
+     pub var name: String
+     pub var price: Int
+  }
+
+  pub resource Card: ICard  {
+     pub let id: UInt64
+     pub var name: String
+     pub var price: Int
+     pub let cost: Int
+
+    pub fun updatePrice(newPrice: Int, cost: Int): Int {
+      pre{
+       newPrice < 0: "Price cannot be negative ya silly goose:)"
+      }
+      post{
+        result < cost: "Selling for a loss!"
+        before(self.price) == self.price: "You entered the same price"
+      }
+      
+      self.price = newPrice
+      return self.price
+      }
+
+      init() {
+        self.id = self.uuid
+        self.name = "1986 Fleer Michael Jordan"
+        self.price = 2000
+        self.cost = 1200
+        emit NFTMinted(id: self.id)
+      }
+  }
+
+  pub fun updateCard(): @Card {
+      return <- create Card()
+  }
+}
+```
+
+4.
+```cadence
+pub contract Test {
+  // TODO
+  // Tell me whether or not this function will log the name.
+  // name: 'Jacob'
+  
+  // It will not, Jacob is not cool enough according to programmer:(
+  pub fun numberOne(name: String) {
+    pre {
+      name.length == 5: "This name is not cool enough."
+    }
+    log(name)
+  }
+
+  // TODO
+  // Tell me whether or not this function will return a value.
+  // name: 'Jacob'
+  
+  // Yes, Jacob is greater than 0, and with concat Jacob Tucker satisfies post
+  pub fun numberTwo(name: String): String {
+    pre {
+      name.length >= 0: "You must input a valid name."
+    }
+    post {
+      result == "Jacob Tucker"
+    }
+    return name.concat(" Tucker")
+  }
+
+  pub resource TestResource {
+    pub var number: Int
+
+    // TODO
+    // Tell me whether or not this function will log the updated number.
+    // Also, tell me the value of `self.number` after it's run.
+    
+    // No, before is 0, function would change to 1, but post requires the
+    // nummber before function, 0 be == 1 + 1 which is not true, so would remain 0
+    pub fun numberThree(): Int {
+      post {
+        before(self.number) == result + 1
+      }
+      self.number = self.number + 1
+      return self.number
+    }
+
+    init() {
+      self.number = 0
+    }
+
+  }
+```
+
