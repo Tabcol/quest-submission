@@ -716,7 +716,7 @@ pub fun main(account: Address){
 
 ## Chapter 4, Day 3
 
-1. We add a collection to this contract, so that we can save muliple NFT resources to one location, path. This also allows others to read the NFTs in our collection. 
+1. We add a collection to this contract, so that we can save muliple NFT resources to one location, path - without overwriting what was previously in that path. This also allows others to read the NFTs in our collection. 
 2. With composable NFTs in cadence, if you have one resource nested inside of another you must create a destroy function for the nested resource to manually be destroyed. 
 3. We will need to control who can mint the contract, being behind on the quests a little I've seen enough to know we will be able to have a minter function in the collection and save it in a way that the person with capability to mint will have a reference to that contract function stored in their account storage. I'd guess interfaces and capabilities can help us further customize this as well. This should also help us not have to remove an NFT from collection or storage if we want to just read it. 
 
@@ -914,7 +914,7 @@ pub contract Test {
   // Tell me whether or not this function will log the name.
   // name: 'Jacob'
   
-  // It will not, Jacob is not cool enough according to programmer:(
+  // It will, Jacob is 5 characters
   pub fun numberOne(name: String) {
     pre {
       name.length == 5: "This name is not cool enough."
