@@ -1168,3 +1168,43 @@ transaction(name: String, recipient: Address, favouriteFood: String, luckyNumber
 ```
 ![ch5d3-1](https://user-images.githubusercontent.com/106959086/177063673-cc282b8a-773d-4425-9a24-a26a21a7047c.jpg)
 
+Script to get IDs:
+```cadence
+import CryptoPoops from 0x03
+import NonFungibleToken from 0x02
+
+// This script borrows an NFT from a collection
+pub fun main(address: Address): [UInt64] {
+    let account = getAccount(address)
+    let collectionRef = getAccount(address).getCapability(/public/CryptoPoopsCollection)
+        .borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>()
+        ?? panic("Could not borrow capability from public collection")
+ 
+    return collectionRef.getIDs()
+}
+```
+![ch5d3-2](https://user-images.githubusercontent.com/106959086/177067706-7c87ab47-7c40-4023-87d8-ac343489f6b7.jpg)
+
+Script to get meta data:
+```cadence
+import CryptoPoops from 0x03
+import NonFungibleToken from 0x02
+
+// This script borrows an NFT from a collection
+pub fun main(address: Address, id: UInt64): &CryptoPoops.NFT {
+    let account = getAccount(address)
+    let collectionRef = getAccount(address).getCapability(/public/CryptoPoopsCollection)
+        .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
+        ?? panic("Could not borrow capability from public collection")
+
+    let nft = collectionRef.borrowAuthNFT(id: id) 
+
+    log(nft.name)
+    log(nft.favouriteFood)
+    log(nft.luckyNumber)
+
+    return nft
+}
+```
+![ch5d3-3](https://user-images.githubusercontent.com/106959086/177068611-d3ecf5d8-869c-47b6-b724-2b77aed98709.jpg)
+
