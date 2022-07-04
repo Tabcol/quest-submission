@@ -1021,8 +1021,11 @@ pub contract interface ITest {
 Contract:
 ```cadence
 import NonFungibleToken from 0x02
+
 pub contract CryptoPoops: NonFungibleToken {
   pub var totalSupply: UInt64
+  pub let CollectionPublicPath: PublicPath
+  pub let CollectionStoragePath: StoragePath
 
   pub event ContractInitialized()
   pub event Withdraw(id: UInt64, from: Address?)
@@ -1109,9 +1112,12 @@ pub contract CryptoPoops: NonFungibleToken {
     self.totalSupply = 0
     emit ContractInitialized()
     self.account.save(<- create Minter(), to: /storage/Minter)
+    self.CollectionPublicPath = /public/CryptoPoopsCollection
+    self.CollectionStoragePath = /storage/CryptoPoopsCollection
   }
 }
 ```
+
 Setup Account Transaction:
 ```cadence
 import CryptoPoops from 0x03
@@ -1122,11 +1128,43 @@ transaction {
     prepare(signer: AuthAccount) {
         signer.save(<- CryptoPoops.createEmptyCollection(), to: /storage/CryptoPoopsCollection) 
 
-        signer.link<&CryptoPoops.Collection{CryptoPoops.CollectionPublic, NonFungibleToken.Receiver, NonFungibleToken.Provider}>
-            (/public/CryptoPoopsCollection, target: /storage/CryptoPoopsCollectionSt)
+        signer.link<&CryptoPoops.Collection{CryptoPoops.CollectionPublic, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic}>
+            (/public/CryptoPoopsCollection, target: /storage/CryptoPoopsCollection)
     }
 }
 ```
+
 Mint NFT Transaction:
 ```cadence
+import CryptoPoops from 0x03
+
+transaction(name: String, recipient: Address, favouriteFood: String, luckyNumber: Int) {
+
+    let minter: &CryptoPoops.Minter
+
+    let recipientCollectionRef: &CryptoPoops.Collection{CryptoPoops.CollectionPublic}
+
+    prepare(signer: AuthAccount) {
+
+        self.minter = signer.borrow<&CryptoPoops.Minter>(from: /storage/Minter)
+            ?? panic("Account does not store an object at the specified path")
+
+        // Borrow the recipient's public NFT collection reference
+        self.recipientCollectionRef = getAccount(recipient)
+            .getCapability(CryptoPoops.CollectionPublicPath) 
+            .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
+            ?? panic("Could not get receiver reference to the NFT Collection")
+    }
+
+    execute {
+        // Mint the NFT, log and deposit it to the recipient's collection
+        let nft <- self.minter.createNFT(name: name, favouriteFood: favouriteFood, luckyNumber: luckyNumber)
+        log (nft.name)
+        log (nft.favouriteFood)
+        log (nft.luckyNumber)
+        self.recipientCollectionRef.deposit(token: <- nft)
+    }
+}
+```
+![ch5d3-1](https://user-images.githubusercontent.com/106959086/177063673-cc282b8a-773d-4425-9a24-a26a21a7047c.jpg)
 
